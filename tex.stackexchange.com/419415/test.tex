@@ -1,0 +1,44 @@
+\documentclass[a4paper]{standalone}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{statistics}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \pgfplotstableread[col sep=comma]{test.csv}\data
+
+  \begin{axis}[
+    boxplot/draw direction=y,
+    ylabel={Y Label},
+    xlabel={X Label},
+    height=8cm,
+    boxplot={
+      draw position={\plotnumofactualtype + 0.5},
+      box extend=0.3,
+    },
+    x=3cm,
+    xtick={0,1,2,...,100},
+    x tick label as interval,
+    xticklabels={%
+      {A},
+      {B},
+      {C}
+    },
+    x tick label style={
+      align=center
+    },
+    xmin=0,
+    xmax=3
+    ]
+
+    \addplot+[boxplot] table[y=a] {\data};
+    \addplot+[boxplot] table[y=b] {\data};
+    \addplot+[boxplot] table[y=c] {\data};
+
+  \end{axis}
+\end{tikzpicture}
+
+\end{document}
+
